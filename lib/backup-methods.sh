@@ -650,6 +650,16 @@ function build_clear_archive
             check_error_code "$error_code" "$file_to_create" "$logfile"
         ;;
 
+        # the tar commandline
+        "tar"|"tar.gz"|"tar.bz2"|"tar.xz"|"tar.lzma")
+            BM__CURRENT_COMMAND="tar"
+            debug "$command $file_to_create \"$target\" > $logfile 2>&1"
+            tail_logfile "$logfile"
+            debug "$command $file_to_create \"$target\""
+            $command $file_to_create "$target" > $logfile 2>&1 || error_code=$?
+            check_error_code "$error_code" "$file_to_create" "$logfile"
+        ;;
+
         # the common commandline
         *)
             BM__CURRENT_COMMAND="generic"
